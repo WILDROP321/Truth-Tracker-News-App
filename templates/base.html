@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Mood </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Bristol';
+      src: url('/static/fonts/Bristol.otf') format('opentype');
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .italic {
+      font-style: italic;
+    }
+    .logo {
+      font-family: 'Bristol', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #2e2e2e;
+    }
+  </style>
+</head>
+<body class="bg-[#faf8f5] text-gray-800">
+  <div class="w-full border-y border-gray-200">
+    <header class="flex items-center justify-between divide-x divide-gray-200">
+      
+      <!-- Left: Logo + Text -->
+      <div class="flex items-center px-6 py-6 divide-x divide-gray-400">
+        <span class="logo pr-[50px]">BORED</span>
+        <div class="pl-[5px] flex flex-col text-left" >
+          <span class="text-sm font-semibold text-gray-800">PROJECT NAME</span>
+          <span class="text-xs text-gray-600 ">To show the mood and emotion of the world</span>
+        </div>
+      </div>
+
+      <!-- Right: Navigation with dividers -->
+      <nav class="flex items-center divide-x divide-gray-200 text-sm font-medium">
+        <a href="/" class="flex items-center space-x-1 px-6 py-6 hover:text-gray-600 transition">
+          <span>Projects</span>
+          <span>→</span>
+        </a>
+        <a href="/about" class="flex items-center space-x-1 px-6 py-6 hover:text-gray-600 transition">
+          <span>About</span>
+          <span>→</span>
+        </a>
+        <a href="/contact" class="flex items-center space-x-1 px-6 py-6 hover:text-gray-600 transition">
+          <span>Contact</span>
+          <span>→</span>
+        </a>
+      </nav>
+    </header>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-6 py-10">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="mt-12 text-center text-gray-500 text-sm">
+    &copy; 2025 BOREDPROJECT.SPACE
+  </footer>
+</body>
+</html>

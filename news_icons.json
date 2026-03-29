@@ -1,0 +1,158 @@
+{
+  "Global": {
+    "BBC": {
+      "domain": "bbc.com",
+      "touch_icon": "https://static.files.bbci.co.uk/bbcdotcom/web/20250728-162205-9b8a2dcb37-web-2.26.0-8/apple-touch-icon.png",
+      "favicon": "https://static.files.bbci.co.uk/bbcdotcom/web/20250728-162205-9b8a2dcb37-web-2.26.0-8/safari-pinned-tab.svg"
+    },
+    "Al Jazeera": {
+      "domain": "www.aljazeera.com",
+      "touch_icon": "https://www.aljazeera.com/favicon_aje.ico",
+      "favicon": "https://www.aljazeera.com/favicon_aje.ico"
+    },
+    "Reuters": {
+      "domain": "www.reuters.com",
+      "touch_icon": "https://reuters.com/favicon.ico",
+      "favicon": "https://reuters.com/favicon.ico"
+    },
+    "The Guardian": {
+      "domain": "www.theguardian.com",
+      "touch_icon": "https://assets.guim.co.uk/static/frontend/icons/homescreen/apple-touch-icon.svg",
+      "favicon": "https://static.guim.co.uk/images/favicon-32x32.ico"
+    },
+    "Yahoo News": {
+      "domain": "www.yahoo.com",
+      "touch_icon": "https://www.yahoo.com/favicon.ico",
+      "favicon": "https://s.yimg.com/cv/apiv2/default/hp/favicon.ico"
+    },
+    "Vox": {
+      "domain": "www.vox.com",
+      "touch_icon": "https://www.vox.com/static-assets/icons/apple-touch-icon.png",
+      "favicon": "https://www.vox.com/static-assets/icons/android-chrome-512x512.png"
+    }
+  },
+  "US": {
+    "CNN": {
+      "domain": "cnn.com",
+      "touch_icon": "https://cnn.com/media/sites/cnn/apple-touch-icon.png",
+      "favicon": "https://cnn.com/media/sites/cnn/favicon.ico"
+    },
+    "NYT": {
+      "domain": "nytimes.com",
+      "touch_icon": "https://nytimes.com/vi-assets/static-assets/apple-touch-icon-28865b72953380a40aa43318108876cb.png",
+      "favicon": "https://nytimes.com/vi-assets/static-assets/favicon-d2483f10ef688e6f89e23806b9700298.ico"
+    },
+    "FOX": {
+      "domain": "foxnews.com",
+      "touch_icon": "https://static.foxnews.com/static/orion/styles/img/fox-news/favicons/apple-touch-icon-57x57.png",
+      "favicon": "https://static.foxnews.com/static/orion/styles/img/fox-news/favicons/safari-pinned-tab.svg"
+    }
+  },
+  "Business": {
+    "Bloomberg": {
+      "domain": "www.bloomberg.com",
+      "touch_icon": "https://www.bloomberg.com/favicon.ico",
+      "favicon": "https://www.bloomberg.com/favicon.ico"
+    },
+    "CNBC": {
+      "domain": "www.cnbc.com",
+      "touch_icon": "https://sc.cnbcfm.com/applications/cnbc.com/staticcontent/img/favicon.ico",
+      "favicon": "https://sc.cnbcfm.com/applications/cnbc.com/staticcontent/img/favicon.ico"
+    },
+    "Forbes": {
+      "domain": "www.forbes.com",
+      "touch_icon": "https://i.forbesimg.com/57X57-F.png",
+      "favicon": "https://i.forbesimg.com/48X48-F.png"
+    },
+    "Wired Business": {
+      "domain": "www.wired.com",
+      "touch_icon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico",
+      "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
+    }
+  },
+  "Tech": {
+    "The Verge": {
+      "domain": "www.theverge.com",
+      "touch_icon": "https://www.theverge.com/static-assets/icons/apple-touch-icon.png",
+      "favicon": "https://www.theverge.com/static-assets/icons/android-chrome-512x512.png"
+    },
+    "Wired": {
+      "domain": "www.wired.com",
+      "touch_icon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico",
+      "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
+    },
+    "TechCrunch": {
+      "domain": "techcrunch.com",
+      "touch_icon": "https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=180",
+      "favicon": "https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=192"
+    }
+  },
+  "Sports": {
+    "ESPN": {
+      "domain": "www.espn.com",
+      "touch_icon": "https://a.espncdn.com/wireless/mw5/r1/images/bookmark-icons-v2/espn-icon-57x57.png",
+      "favicon": "https://a.espncdn.com/favicon.ico"
+    },
+    "CBS Sports": {
+      "domain": "www.cbssports.com",
+      "touch_icon": "https://sportsfly.cbsistatic.com/fly-0999/bundles/sportsmediacss/images/core/webclips/touch-icon-iphone.png",
+      "favicon": "https://www.cbssports.com/safari-pinned-tab.svg"
+    },
+    "Fox Sports": {
+      "domain": "www.foxsports.com",
+      "touch_icon": "https://foxsports.com/favicon.ico",
+      "favicon": "https://foxsports.com/favicon.ico"
+    }
+  },
+  "Entertainment": {
+    "Variety": {
+      "domain": "variety.com",
+      "touch_icon": "https://variety.com/wp-content/themes/pmc-variety-2020/assets/app/icons/apple-touch-icon.png",
+      "favicon": "https://variety.com/wp-content/uploads/2018/06/variety-favicon.png?w=32"
+    },
+    "Hollywood Reporter": {
+      "domain": "www.hollywoodreporter.com",
+      "touch_icon": "https://www.hollywoodreporter.com/wp-content/themes/vip/pmc-hollywoodreporter-2021/assets/app/icons/favicon.png",
+      "favicon": "https://www.hollywoodreporter.com/wp-content/themes/vip/pmc-hollywoodreporter-2021/assets/app/icons/favicon.ico"
+    },
+    "Rolling Stone": {
+      "domain": "www.rollingstone.com",
+      "touch_icon": "https://www.rollingstone.com/wp-content/uploads/2024/12/R-Avatar_512x512_flat.png?w=180",
+      "favicon": "https://www.rollingstone.com/wp-content/uploads/2024/12/R-Avatar_512x512_flat.png?w=192"
+    }
+  },
+  "Science": {
+    "National Geographic": {
+      "domain": "www.nationalgeographic.com",
+      "touch_icon": "https://assets-cdn.nationalgeographic.com/natgeo/static/icons/favicon-32x32.png",
+      "favicon": "https://assets-cdn.nationalgeographic.com/natgeo/static/icons/favicon.ico"
+    },
+    "Science News": {
+      "domain": "www.sciencenews.org",
+      "touch_icon": "https://i0.wp.com/www.sciencenews.org/wp-content/uploads/2025/01/cropped-favicon.jpg?fit=180%2C180&ssl=1",
+      "favicon": "https://i0.wp.com/www.sciencenews.org/wp-content/uploads/2025/01/cropped-favicon.jpg?fit=192%2C192&ssl=1"
+    },
+    "Wired Science": {
+      "domain": "www.wired.com",
+      "touch_icon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico",
+      "favicon": "https://www.wired.com/verso/static/wired-us/assets/favicon.ico"
+    }
+  },
+  "India": {
+    "The Hindu": {
+      "domain": "www.thehindu.com",
+      "touch_icon": "https://www.thehindu.com/apple-touch-icon.png",
+      "favicon": "https://www.thehindu.com/favicon.ico"
+    },
+    "Times of India": {
+      "domain": "timesofindia.indiatimes.com",
+      "touch_icon": "https://m.timesofindia.com/touch-icon-iphone-precomposed.png",
+      "favicon": "https://timesofindia.indiatimes.com/icons/toifavicon.ico"
+    },
+    "Indian Express": {
+      "domain": "indianexpress.com",
+      "touch_icon": "https://images.indianexpress.com/2018/10/fav-icon.png",
+      "favicon": "https://images.indianexpress.com/2018/10/fav-icon.png"
+    }
+  }
+}

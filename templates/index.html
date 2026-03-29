@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-6 flex flex-wrap gap-2 items-center">
+  <button id="resetFilters" class="px-3 py-1 rounded-full border hover:bg-gray-100">All</button>
+  {% for cat in categories.keys() %}
+  <button class="cat-filter px-3 py-1 rounded-full border hover:bg-gray-100" data-cat="{{ cat }}">{{ cat }}</button>
+  {% endfor %}
+  <span class="ml-auto text-sm text-gray-500" id="liveHint" title="New data appears when you refresh">Live feed</span>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+  
+  <!-- Left Column: Mood Meter -->
+  <div class="flex flex-col items-center justify-center space-y-6">
+  <!-- Left Column: Mood Meter -->  
+
+    <br>
+    <br>
+    <div class="relative w-64 h-32">
+      <svg class="w-full h-full" viewBox="0 0 200 100">
+        <path d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="#000000" stroke-width="5" />
+      </svg>
+      <div id="needle" 
+          class="absolute bottom-0 left-1/2 origin-bottom w-1 h-24 bg-gray-800 rounded-full transform -translate-x-1/2">
+      </div>
+      <span class="absolute bottom-0 left-0 transform -translate-x-4 translate-y-6 text-xs font-medium text-gray-700">
+        Negative
+      </span>
+      <span class="absolute bottom-0 right-0 transform translate-x-4 translate-y-6 text-xs font-medium text-gray-700">
+        Positive
+      </span>
+    </div>
+
+    <div id="score" class="text-4xl font-bold text-gray-800">0</div>
+    <p class="text-gray-600 text-sm">Global Sentiment Meter</p>
+  </div>
+
+  <!-- Right Column: Emotion of the Earth -->
+  <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-6">
+    <h2 class="text-3xl font-semibold tracking-tight">Emotion of the Earth</h2>
+    <p id="emotionText" class="text-lg font-medium text-gray-700">Loading...</p>
+
+    <h3 class="text-xl font-semibold mt-4">Emotion Breakdown</h3>
+    <div class="w-full overflow-x-auto">
+      <table class="min-w-full border border-gray-300 text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2 text-left font-semibold text-gray-700">Emotion</th>
+            <th class="border px-4 py-2 text-left font-semibold text-gray-700">Score</th>
+          </tr>
+        </thead>
+        <tbody id="emotionBreakdown"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<hr class="my-12 border-gray-300">
+
+
+<div class="max-w-5xl mx-auto">
+  {% for category, articles in categories.items() %}
+    {% if articles and articles|length > 0 %}
+    <div class="mb-10" data-category="{{ category }}">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold">{{ category }} News</h2>
+        {% if category_moods.get(category) %}
+          <div class="text-sm text-gray-600">
+            <span class="font-semibold">Score:</span> {{ category_moods[category].sentiment_score }}/100 
+            &nbsp; | &nbsp;
+            <span class="font-semibold">Top Emotion:</span> {{ category_moods[category].top_emotion | capitalize }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Featured article -->
+        <div class="relative col-span-1 bg-white rounded-xl shadow p-4 flex flex-col justify-between">
+          <a href="{{ articles[0].link }}" target="_blank" class="block relative">
+            {% if articles[0].image %}
+              <img src="{{ articles[0].image }}" alt="{{ articles[0].title }}" class="w-full h-48 object-cover rounded-lg mb-3">
+            {% endif %}
+            <div class="flex items-center space-x-2 mb-2">
+              {% set icon = news_icons.get(category, {}).get(articles[0].source, {}).get('favicon') %}
+              {% if icon %}
+                <img src="{{ icon }}" alt="{{ articles[0].source }}" class="w-5 h-5 rounded-full">
+              {% endif %}
+              <p class="text-sm text-gray-500">{{ articles[0].source }}</p>
+            </div>
+            <h3 class="text-xl font-semibold">{{ articles[0].title }}</h3>
+            <p class="text-xs text-gray-400 mt-1">{{ articles[0].published }}</p>
+            <p class="mt-2 text-gray-700">{{ articles[0].summary | truncate_words(50) }}</p>
+            <div class="mt-4 flex justify-end">
+              <img src="{{ url_for('static', filename='icons/external-link.png') }}" alt="Go to article"
+                   class="w-5 h-5 opacity-70 hover:opacity-100 transition">
+            </div>
+          </a>
+        </div>
+
+        <!-- Other articles -->
+        <div class="col-span-1 flex flex-col gap-4">
+          {% for article in articles[1:4] %}
+          <div class="relative bg-white rounded-xl shadow p-3 flex flex-col justify-between">
+            <a href="{{ article.link }}" target="_blank" class="block relative">
+              <div class="flex items-center space-x-2 mb-1">
+                {% set icon = news_icons.get(category, {}).get(article.source, {}).get('favicon') %}
+                {% if icon %}
+                  <img src="{{ icon }}" alt="{{ article.source }}" class="w-4 h-4 rounded-full">
+                {% endif %}
+                <p class="text-xs text-gray-500">{{ article.source }}</p>
+              </div>
+              <h4 class="text-base font-medium">{{ article.title }}</h4>
+              <p class="text-xs text-gray-400 mt-1">{{ article.published }}</p>
+              <p class="text-xs mt-2 text-gray-600">{{ article.summary | truncate_words(50) }}</p>
+
+              <div class="mt-3 flex justify-end">
+                <img src="{{ url_for('static', filename='icons/external-link.png') }}" alt="Go to article"
+                     class="w-4 h-4 opacity-70 hover:opacity-100 transition">
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+
+
+<hr class="my-12 border-gray-300">
+
+<!-- Source Sentiment Section -->
+<div class="max-w-7xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-center">Sentiment by News Source</h2>
+  
+  <div class="grid md:grid-cols-3 gap-6">
+    {% for source, stats in source_moods.items() %}
+    <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
+  
+      <!-- Logo -->
+      {% set icon = source | get_icon(news_icons) %}
+
+
+      {% if icon %}
+        <img src="{{ icon }}" alt="{{ source }}" class="w-12 h-12 rounded-full mb-3">
+      {% else %}
+        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-3">
+          <span class="text-gray-500 text-xs">{{ source }}</span>
+        </div>
+      {% endif %}
+
+      
+      
+      <!-- Source Name -->
+      <h3 class="text-lg font-semibold mb-2">{{ source }}</h3>
+      
+      <!-- Sentiment Score -->
+      <p class="text-sm text-gray-700 mb-4">
+        <span class="font-semibold">Sentiment:</span> 
+        {{ ((stats.average_sentiment + 100) / 2) | round(2) }}/100
+      </p>
+
+      <!-- Emotions Breakdown -->
+      {% if stats.average_emotions %}
+      {% set sorted_emotions = stats.average_emotions.items() | sort(attribute=1, reverse=True) %}
+      <div class="w-full">
+        <h4 class="text-sm font-semibold text-gray-600 mb-2">Emotions</h4>
+        <table class="w-full text-xs border border-gray-200">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border px-2 py-1 text-left">Emotion</th>
+              <th class="border px-2 py-1 text-left">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for emo, score in sorted_emotions %}
+            <tr class="{% if loop.first %}bg-yellow-100 font-semibold{% endif %}">
+              <td class="border px-2 py-1 capitalize">{{ emo }}</td>
+              <td class="border px-2 py-1">{{ (score * 100) | round(1) }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<br>
+<br>
+
+<h2 class="text-2xl font-bold mb-4">Emotions by Category</h2>
+
+<canvas id="stackedBarChart"></canvas>
+
+<h2 class="text-2xl font-bold mt-10 mb-4">Overall Emotion Distribution</h2>
+<div style="width:300px; height:300px; margin:0 auto;">
+  <canvas id="donutChart"></canvas>
+</div>
+
+<script>
+  const moodScore = Number({{ world_mood_score }});
+  const emotions = {{ average_emotions | tojson }};
+  const dominant = "{{ dominant_emotion }}";
+  const dominantScore = Number({{ dominant_emotion_score|default(0) }});
+
+  const breakdownTable = document.getElementById('emotionBreakdown');
+  const needle = document.getElementById('needle');
+  const scoreDisplay = document.getElementById('score');
+  const emotionText = document.getElementById('emotionText');
+
+  // Map mood score (0–100) to gauge angle (-90 to +90)
+  const angle = (moodScore / 100) * 180 - 90;
+
+  // Set initial position
+  needle.style.transform = `translateX(-50%) rotate(-90deg)`;
+
+  // Animate to moodScore
+  requestAnimationFrame(() => {
+    needle.style.transition = "transform 1.2s ease-out";
+    needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+  });
+
+  // Counter animation for number
+  let count = 0;
+  const target = Math.round(moodScore);
+  const interval = setInterval(() => {
+    if (count >= target) {
+      clearInterval(interval);
+      scoreDisplay.textContent = target + '/100';
+    } else {
+      count++;
+      scoreDisplay.textContent = count + '/100';
+    }
+  }, 15);
+
+  // Compute negativity from distribution (0..1)
+  const negativeSet = new Set([
+    "fear","anger","sadness","grief","disgust","remorse","disapproval","disappointment",
+    "nervousness","confusion","annoyance","embarrassment"
+  ]);
+
+  let negativity = 0;
+  for (const [emo, v] of Object.entries(emotions)) {
+    if (negativeSet.has(emo)) negativity += Number(v || 0);
+  }
+
+  // Emotion-driven headline
+  if (negativity >= 0.45) {
+    emotionText.textContent = "Anxious and Uncertain";
+  } else if (moodScore < 45) {
+    emotionText.textContent = "Tense and Heavy";
+  } else if (moodScore >= 65) {
+    emotionText.textContent = "Hopeful and Energized";
+  } else {
+    const labelMap = {
+      fear: "Uneasy / On edge",
+      anger: "Frustrated / Heated",
+      sadness: "Somber / Reflective",
+      nervousness: "Restless / Uncertain",
+      relief: "Relieved (but cautious)",
+      curiosity: "Curious / Watching",
+      surprise: "Shifting / Unpredictable",
+      joy: "Uplifted / Bright"
+    };
+    emotionText.textContent = labelMap[dominant] || "Mixed / Unclear";
+  }
+
+  // Fill breakdown table (as %)
+  const sortedEmotions = Object.entries(emotions).sort((a, b) => (b[1] || 0) - (a[1] || 0));
+  breakdownTable.innerHTML = "";
+
+  for (const [emotion, value] of sortedEmotions) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="border px-4 py-2 capitalize">${emotion}</td>
+      <td class="border px-4 py-2">${(Number(value) * 100).toFixed(1)}%</td>
+    `;
+    breakdownTable.appendChild(row);
+  }
+</script>
+
+
+
+
+
+
+<!-- Chart Stuff -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Get Flask-passed data
+    const categoryEmotions = {{ category_emotions|tojson }};
+    const overallEmotions = {{ overall_emotions|tojson }};
+
+// Curated colors for common emotions (GoEmotions-style labels)
+const emotionColors = {
+  joy: '#F7B801',
+  admiration: '#FFD166',
+  amusement: '#FFB703',
+  approval: '#F4D35E',
+  caring: '#F7CAD0',
+  gratitude: '#B8F2E6',
+  love: '#FF4D6D',
+  optimism: '#F9C74F',
+  pride: '#F9844A',
+  relief: '#90BE6D',
+  excitement: '#43AA8B',
+
+  sadness: '#4A90E2',
+  grief: '#3A5A98',
+  disappointment: '#577590',
+  remorse: '#355070',
+
+  anger: '#E63946',
+  annoyance: '#F3722C',
+  disapproval: '#D62828',
+
+  fear: '#6C5CE7',
+  nervousness: '#9B5DE5',
+
+  disgust: '#55A630',
+  embarrassment: '#2A9D8F',
+
+  surprise: '#FF9F1C',
+  realization: '#00BBF9',
+  curiosity: '#00F5D4',
+  confusion: '#4895EF',
+
+  neutral: '#9E9E9E'
+};
+
+// Stable fallback color generator for any emotion not in the map
+function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function colorFromLabel(label) {
+  const h = hashString(label) % 360;     // hue 0..359
+  const s = 60;                         // saturation
+  const l = 55;                         // lightness
+  return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+function getEmotionColor(label) {
+  const key = String(label || '').toLowerCase();
+  return emotionColors[key] || colorFromLabel(key);
+}
+
+    // ===== Stacked Bar Chart =====
+    const ctx1 = document.getElementById('stackedBarChart').getContext('2d');
+    const labels1 = Object.keys(categoryEmotions);
+    const emotionTypes = [...new Set(Object.values(categoryEmotions).flatMap(obj => Object.keys(obj)))];
+
+    const datasets1 = emotionTypes.map(emotion => ({
+        label: emotion,
+        data: labels1.map(cat => (categoryEmotions[cat][emotion] || 0) * 100),
+        backgroundColor: emotionColors[emotion] || '#CCCCCC' // fallback gray
+    }));
+
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: labels1,
+            datasets: datasets1
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+              x: { stacked: true },
+              y: {
+                stacked: true,
+                ticks: { callback: (v) => v + '%' }
+              }
+            }
+        }
+    });
+
+    // ===== Pie / Donut Chart =====
+    const ctx2 = document.getElementById('donutChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: overallEmotions.map(e => e.emotion_label),
+            datasets: [{
+                data: overallEmotions.map(e => e.emotion_score),
+                backgroundColor: overallEmotions.map(e => emotionColors[e.emotion_label] || '#CCCCCC')
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'right' } }
+        }
+    });
+</script>
+
+
+
+<script>
+// Category filter logic
+document.querySelectorAll('.cat-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('[data-category]').forEach(sec => {
+      sec.style.display = (sec.dataset.category === cat) ? '' : 'none';
+    });
+  });
+});
+document.getElementById('resetFilters').addEventListener('click', () => {
+  document.querySelectorAll('[data-category]').forEach(sec => sec.style.display = '');
+});
+</script>
+
+{% endblock %}
